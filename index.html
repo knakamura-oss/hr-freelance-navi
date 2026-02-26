@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人事フリーランスNavi｜人事のプロフェッショナルへ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8d5a3;
+  --gold-dark: #8b6914;
+  --navy: #0a1628;
+  --navy-mid: #132040;
+  --navy-light: #1e3060;
+  --cream: #faf8f3;
+  --cream-dark: #f0ece0;
+  --text: #1a1a2e;
+  --text-mid: #4a4a6a;
+  --text-light: #8888aa;
+  --white: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ===== ヘッダー ===== */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(10, 22, 40, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+}
+.header-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 40px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+.logo-emblem {
+  width: 40px; height: 40px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.logo-emblem::before {
+  content: '';
+  position: absolute; inset: 3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  opacity: 0.15;
+}
+.logo-emblem span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 600;
+  color: var(--gold); position: relative;
+}
+.logo-texts { display: flex; flex-direction: column; }
+.logo-main {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--white); letter-spacing: 0.3px; line-height: 1.2;
+}
+.logo-sub {
+  font-size: 9px; color: var(--gold);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+nav { display: flex; align-items: center; gap: 32px; }
+nav a {
+  text-decoration: none; color: rgba(255,255,255,0.7);
+  font-size: 13px; font-weight: 400; letter-spacing: 0.5px;
+  transition: color 0.3s; position: relative;
+}
+nav a::after {
+  content: ''; position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--gold);
+  transform: scaleX(0); transition: transform 0.3s;
+}
+nav a:hover { color: var(--gold); }
+nav a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--navy) !important;
+  padding: 9px 22px; border-radius: 2px;
+  font-weight: 700 !important; letter-spacing: 1px; font-size: 12px !important;
+}
+.nav-cta::after { display: none !important; }
+
+/* ===== 検索バー（ヘッダー直下の帯） ===== */
+.search-strip {
+  position: fixed;
+  top: 68px; left: 0; right: 0;
+  z-index: 190;
+  background: rgba(19, 32, 64, 0.97);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 14px 40px;
+}
+.search-strip-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.search-strip-label {
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-weight: 500;
+}
+.search-strip-form {
+  display: flex;
+  flex: 1;
+  max-width: 500px;
+}
+.search-strip-input {
+  flex: 1;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-right: none;
+  padding: 10px 16px;
+  color: white;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  transition: border 0.2s, background 0.2s;
+}
+.search-strip-input::placeholder { color: rgba(255,255,255,0.3); }
+.search-strip-input:focus {
+  border-color: var(--gold);
+  background: rgba(255,255,255,0.1);
+}
+.search-strip-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--navy); border: none;
+  padding: 10px 20px; font-size: 12px; font-weight: 700;
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.search-strip-btn:hover { opacity: 0.9; }
+.search-strip-divider {
+  width: 1px; height: 20px;
+  background: rgba(255,255,255,0.15);
+}
+.search-strip-tags {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+}
+.strip-tag {
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: rgba(201,168,76,0.8);
+  font-size: 11px; padding: 5px 12px;
+  cursor: pointer; font-family: inherit;
+  transition: all 0.2s; white-space: nowrap;
+}
+.strip-tag:hover {
+  background: rgba(201,168,76,0.2);
+  border-color: var(--gold); color: var(--gold);
+}
+
+/* ===== ヒーロー ===== */
+.hero {
+  min-height: 100vh;
+  background: var(--navy);
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding-top: 128px; /* header(68) + searchstrip(約60) */
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 65% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
+    linear-gradient(135deg, #0a1628 0%, #132040 50%, #0d1e3a 100%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-orb {
+  position: absolute; border-radius: 50%; filter: blur(80px);
+}
+.hero-orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+  top: -80px; right: 0;
+}
+.hero-orb-2 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(30,48,96,0.5) 0%, transparent 70%);
+  bottom: -50px; left: -50px;
+}
+.hero-inner {
+  max-width: 1300px; margin: 0 auto;
+  padding: 80px 40px;
+  position: relative; z-index: 1; width: 100%;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; margin-bottom: 36px;
+}
+.hero-eyebrow-line { width: 50px; height: 1px; background: var(--gold); }
+.hero-eyebrow span {
+  font-size: 11px; color: var(--gold);
+  letter-spacing: 3.5px; text-transform: uppercase;
+}
+.hero h1 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(32px, 4.5vw, 64px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.4;
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1em; font-weight: 300;
+}
+.hero-desc {
+  font-size: 15px; color: rgba(255,255,255,0.55);
+  line-height: 2.2; margin-bottom: 48px;
+  font-weight: 300; max-width: 600px; margin-left: auto; margin-right: auto;
+}
+.hero-actions {
+  display: flex; gap: 20px; align-items: center;
+  justify-content: center; margin-bottom: 40px;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold) 0%, #a8872e 100%);
+  color: var(--navy);
+  padding: 16px 40px; font-size: 14px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  border: none; cursor: pointer; font-family: inherit;
+  text-decoration: none; display: inline-block;
+  transition: transform 0.2s, box-shadow 0.2s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(201,168,76,0.4);
+}
+.btn-secondary {
+  color: var(--gold); font-size: 13px;
+  letter-spacing: 1px; text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid rgba(201,168,76,0.4);
+  padding-bottom: 2px; transition: gap 0.2s;
+}
+.btn-secondary:hover { gap: 14px; }
+.hero-stats {
+  display: flex; gap: 0; justify-content: center;
+  border: 1px solid rgba(201,168,76,0.2);
+  max-width: 480px; margin: 0 auto;
+}
+.stat {
+  flex: 1; padding: 24px 20px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 6px;
+  border-right: 1px solid rgba(201,168,76,0.2);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px; font-weight: 600;
+  color: var(--gold); line-height: 1;
+}
+.stat-num span { font-size: 17px; }
+.stat-label {
+  font-size: 10px; color: rgba(255,255,255,0.35);
+  letter-spacing: 1px;
+}
+
+/* ===== セクション共通 ===== */
+.section {
+  padding: 100px 40px;
+  max-width: 1300px; margin: 0 auto;
+}
+.section-eyebrow {
+  display: flex; align-items: center;
+  gap: 14px; margin-bottom: 16px;
+}
+.section-eyebrow-line { width: 30px; height: 1px; background: var(--gold); }
+.section-eyebrow span {
+  font-size: 11px; color: var(--gold);
+  letter-spacing: 3px; text-transform: uppercase;
+}
+.section-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700; color: var(--navy);
+  line-height: 1.3; margin-bottom: 12px;
+}
+.section-title em {
+  font-style: italic; color: var(--gold-dark);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15em; font-weight: 300;
+}
+
+/* ===== カテゴリータブ ===== */
+.category-bar {
+  display: flex; gap: 0; margin-bottom: 48px;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  overflow-x: auto;
+}
+.cat-tab {
+  padding: 14px 24px; font-size: 13px; font-weight: 500;
+  color: var(--text-light); background: none; border: none;
+  cursor: pointer; font-family: inherit; letter-spacing: 0.5px;
+  position: relative; white-space: nowrap; transition: color 0.2s;
+}
+.cat-tab::after {
+  content: ''; position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 2px; background: var(--gold);
+  transform: scaleX(0); transition: transform 0.3s;
+}
+.cat-tab.active, .cat-tab:hover { color: var(--gold-dark); }
+.cat-tab.active::after { transform: scaleX(1); }
+
+/* ===== 記事グリッド ===== */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.article-card {
+  background: var(--white);
+  border: 1px solid rgba(201,168,76,0.15);
+  overflow: hidden; cursor: pointer;
+  text-decoration: none; color: inherit; display: block;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  position: relative;
+}
+.article-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  transform: scaleX(0); transition: transform 0.3s; z-index: 1;
+}
+.article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  border-color: rgba(201,168,76,0.4);
+}
+.article-card:hover::before { transform: scaleX(1); }
+.card-visual {
+  height: 200px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding: 20px;
+}
+.card-visual.v1 { background: linear-gradient(135deg, #0a1628 0%, #1e3060 100%); }
+.card-visual.v2 { background: linear-gradient(135deg, #1a0a08 0%, #5c1a0a 100%); }
+.card-visual.v3 { background: linear-gradient(135deg, #0a1a0a 0%, #1a4a1a 100%); }
+.card-visual.v4 { background: linear-gradient(135deg, #1a0a2e 0%, #3a1a6e 100%); }
+.card-visual.v5 { background: linear-gradient(135deg, #1a1a0a 0%, #4a3a0a 100%); }
+.card-visual.v6 { background: linear-gradient(135deg, #0a1a1a 0%, #0a3a4a 100%); }
+.card-visual-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 120px; font-weight: 700;
+  color: rgba(201,168,76,0.12);
+  position: absolute; right: -10px; top: -20px; line-height: 1;
+}
+.card-visual-tag {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--navy); font-size: 10px; font-weight: 700;
+  padding: 4px 12px; letter-spacing: 1.5px; text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+.card-content { padding: 24px; }
+.card-meta {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 12px;
+}
+.card-date { font-size: 11px; color: var(--text-light); letter-spacing: 0.5px; }
+.card-read-time { font-size: 11px; color: var(--text-light); }
+.card-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 16px; font-weight: 600;
+  line-height: 1.6; margin-bottom: 12px; color: var(--navy);
+}
+.card-excerpt {
+  font-size: 13px; color: var(--text-mid); line-height: 1.8;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-footer {
+  padding: 16px 24px;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-author { display: flex; align-items: center; gap: 8px; }
+.author-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: var(--navy); font-weight: 700;
+}
+.author-name { font-size: 12px; color: var(--text-mid); }
+.card-arrow {
+  width: 28px; height: 28px;
+  border: 1px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-size: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+.article-card:hover .card-arrow { background: var(--gold); color: var(--navy); }
+
+/* ===== 人気記事 ===== */
+.popular-bg { background: var(--navy); padding: 100px 0; }
+.popular-inner { max-width: 1300px; margin: 0 auto; padding: 0 40px; }
+.popular-title-area { margin-bottom: 52px; }
+.popular-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700; color: var(--white); margin-bottom: 8px;
+}
+.popular-subtitle { font-size: 14px; color: rgba(255,255,255,0.4); }
+.popular-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.15);
+}
+.popular-item {
+  background: rgba(255,255,255,0.03);
+  padding: 28px 32px; display: flex; gap: 24px;
+  align-items: flex-start; cursor: pointer; transition: background 0.2s;
+}
+.popular-item:hover { background: rgba(201,168,76,0.06); }
+.popular-rank {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300;
+  color: rgba(201,168,76,0.25); line-height: 1;
+  flex-shrink: 0; width: 44px;
+}
+.popular-rank.top { color: var(--gold); }
+.popular-tag {
+  font-size: 10px; color: var(--gold); letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 8px; display: block;
+}
+.popular-item-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--white); line-height: 1.6; margin-bottom: 8px;
+}
+.popular-item-date { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.5px; }
+
+/* ===== お問い合わせ ===== */
+.contact-section {
+  background: var(--cream-dark);
+  border-top: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 100px 40px;
+}
+.contact-inner {
+  max-width: 1300px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 80px; align-items: start;
+}
+.contact-left .section-title { margin-bottom: 20px; }
+.contact-left p { font-size: 14px; color: var(--text-mid); line-height: 2; margin-bottom: 36px; }
+.contact-features { display: flex; flex-direction: column; gap: 16px; }
+.contact-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-mid); }
+.feature-icon {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,168,76,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.contact-form-card {
+  background: var(--white); border: 1px solid rgba(201,168,76,0.2);
+  padding: 48px; position: relative;
+}
+.contact-form-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark), var(--gold));
+}
+.form-title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 20px; font-weight: 700; color: var(--navy);
+  margin-bottom: 32px; padding-bottom: 20px;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; color: var(--navy);
+  margin-bottom: 8px; letter-spacing: 0.5px;
+}
+.required {
+  background: var(--gold); color: var(--navy);
+  font-size: 9px; font-weight: 700; padding: 2px 6px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 12px 16px;
+  border: 1px solid rgba(201,168,76,0.25);
+  font-size: 14px; font-family: inherit; color: var(--text);
+  outline: none; transition: border 0.2s, background 0.2s;
+  background: var(--cream); border-radius: 0;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--gold); background: white;
+}
+.form-textarea { height: 100px; resize: vertical; }
+.form-submit {
+  width: 100%;
+  background: linear-gradient(135deg, var(--navy), var(--navy-light));
+  color: white; border: 1px solid rgba(201,168,76,0.3);
+  padding: 18px; font-size: 14px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; font-family: inherit; transition: all 0.3s;
+  margin-top: 8px; position: relative; overflow: hidden;
+}
+.form-submit::after {
+  content: ''; position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.15), transparent);
+  transition: left 0.5s;
+}
+.form-submit:hover { border-color: var(--gold); }
+.form-submit:hover::after { left: 100%; }
+
+/* ===== フッター ===== */
+footer {
+  background: var(--navy); padding: 80px 40px 40px;
+  border-top: 1px solid rgba(201,168,76,0.2);
+}
+.footer-inner { max-width: 1300px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr;
+  gap: 60px; padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 40px;
+}
+.footer-brand p {
+  font-size: 13px; color: rgba(255,255,255,0.4);
+  line-height: 2; margin-top: 16px; font-weight: 300;
+}
+.footer-divider { width: 40px; height: 1px; background: var(--gold); margin: 20px 0; opacity: 0.4; }
+.footer-col h4 {
+  font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 20px; opacity: 0.7;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 12px; }
+.footer-col a {
+  color: rgba(255,255,255,0.45); text-decoration: none;
+  font-size: 13px; font-weight: 300; transition: color 0.2s; letter-spacing: 0.3px;
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px; }
+
+/* ===== アニメーション ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.article-card { animation: fadeInUp 0.6s ease both; }
+.article-card:nth-child(1) { animation-delay: 0.1s; }
+.article-card:nth-child(2) { animation-delay: 0.2s; }
+.article-card:nth-child(3) { animation-delay: 0.3s; }
+.article-card:nth-child(4) { animation-delay: 0.15s; }
+.article-card:nth-child(5) { animation-delay: 0.25s; }
+.article-card:nth-child(6) { animation-delay: 0.35s; }
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 1024px) {
+  .articles-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-inner { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .articles-grid { grid-template-columns: 1fr; }
+  .popular-grid { grid-template-columns: 1fr; }
+  nav { display: none; }
+  .section { padding: 60px 24px; }
+  .search-strip { padding: 12px 20px; }
+  .search-strip-inner { flex-wrap: wrap; gap: 10px; }
+  .search-strip-divider { display: none; }
+  .contact-section { padding: 60px 24px; }
+  .contact-form-card { padding: 32px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 60px 24px 32px; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .hero { padding-top: 160px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-emblem"><span>人</span></div>
+      <div class="logo-texts">
+        <span class="logo-main">人事フリーランスNavi</span>
+        <span class="logo-sub">HR Professional Media</span>
+      </div>
+    </a>
+    <nav>
+      <a href="#articles">記事一覧</a>
+      <a href="#popular">人気記事</a>
+      <a href="#contact">相談する</a>
+      <a href="#contact" class="nav-cta">無料相談</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 検索バー（ヘッダー直下の固定帯） -->
+<div class="search-strip">
+  <div class="search-strip-inner">
+    <span class="search-strip-label">記事を検索</span>
+    <div class="search-strip-form">
+      <input type="text" class="search-strip-input" id="searchInput" placeholder="例：単価交渉、週3案件、リモート...">
+      <button class="search-strip-btn" onclick="doSearch()">検索</button>
+    </div>
+    <div class="search-strip-divider"></div>
+    <div class="search-strip-tags">
+      <button class="strip-tag" onclick="setSearch('単価交渉')">単価交渉</button>
+      <button class="strip-tag" onclick="setSearch('案件獲得')">案件獲得</button>
+      <button class="strip-tag" onclick="setSearch('週3稼働')">週3稼働</button>
+      <button class="strip-tag" onclick="setSearch('リモート')">リモート</button>
+      <button class="strip-tag" onclick="setSearch('確定申告')">確定申告</button>
+    </div>
+  </div>
+</div>
+
+<!-- ヒーロー -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>HR Freelance Professional Media</span>
+      <div class="hero-eyebrow-line"></div>
+    </div>
+    <h1>
+      人事の<em>プロフェッショナル</em>として<br>
+      自由に、高く、活躍するために。
+    </h1>
+    <p class="hero-desc">
+      単価交渉・案件獲得・契約形態・稼働スタイル。<br>
+      人事フリーランスとして第一線で活躍するための<br>
+      知識とノウハウを、徹底的にお届けします。
+    </p>
+    <div class="hero-actions">
+      <a href="#articles" class="btn-primary">記事を読む</a>
+      <a href="#contact" class="btn-secondary">無料相談はこちら →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">200<span>+</span></div>
+        <div class="stat-label">掲載記事数</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5<span>万</span></div>
+        <div class="stat-label">月間読者数</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-label">相談満足度</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 記事一覧 -->
+<section id="articles" style="background: var(--cream); padding: 100px 0;">
+  <div class="section" style="padding-top: 0; padding-bottom: 0;">
+    <div class="section-eyebrow">
+      <div class="section-eyebrow-line"></div>
+      <span>Latest Articles</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 48px;">
+      <div>
+        <h2 class="section-title">新着<em>記事</em></h2>
+        <p style="font-size:14px; color:var(--text-mid); line-height:2;">人事フリーランスに役立つ最新の情報をお届けします。</p>
+      </div>
+      <a href="#" style="color:var(--gold-dark); font-size:13px; text-decoration:none; border-bottom:1px solid rgba(201,168,76,0.4); padding-bottom:2px;">すべての記事を見る →</a>
+    </div>
+    <div class="category-bar">
+      <button class="cat-tab active" onclick="filterCat(this,'all')">All</button>
+      <button class="cat-tab" onclick="filterCat(this,'案件獲得')">案件獲得</button>
+      <button class="cat-tab" onclick="filterCat(this,'単価・報酬')">単価・報酬</button>
+      <button class="cat-tab" onclick="filterCat(this,'稼働スタイル')">稼働スタイル</button>
+      <button class="cat-tab" onclick="filterCat(this,'契約・法律')">契約・法律</button>
+      <button class="cat-tab" onclick="filterCat(this,'確定申告')">確定申告</button>
+    </div>
+    <div class="articles-grid" id="articlesGrid">
+      <a class="article-card" data-category="単価・報酬" href="#">
+        <div class="card-visual v1"><span class="card-visual-num">¥</span><span class="card-visual-tag">単価・報酬</span></div>
+        <div class="card-content">
+          <div class="card-meta"><span class="card-date">2026.02.20</span><span class="card-read-time">📖 8分</span></div>
+          <h3 class="card-title">人事フリーランスの平均単価相場2026年版｜職種・経験年数・稼働日数別に徹底比較</h3>
+          <p class="card-excerpt">採用支援・労務・HRBPなど職種ごとの単価相場を、実際のエージェント掲載データをもとに解説。あなたの適正単価を把握して交渉に活かしましょう。</p>
+        </div>
+        <div class="card-footer"><div class="card-author"><div class="author-avatar">山</div><span class="author-name">山田 編集部</span></div><div class="card-arrow">→</div></div>
+      </a>
+      <a class="article-card" data-category="案件獲得" href="#">
+        <div class="card-visual v2"><span class="card-visual-num">∞</span><span class="card-visual-tag">案件獲得</span></div>
+        <div class="card-content">
+          <div class="card-meta"><span class="card-date">2026.02.15</span><span class="card-read-time">📖 6分</span></div>
+          <h3 class="card-title">人事フリーランスが案件を途切れさせない3つの習慣｜次の案件は稼働中に探す</h3>
+          <p class="card-excerpt">「案件終了後に慌てて探す」は最もリスクが高い。常にパイプラインを持ち続けるための具体的な行動習慣を現役フリーランス人事が解説します。</p>
+        </div>
+        <div class="card-footer"><div class="card-author"><div class="author-avatar">田</div><span class="author-name">田中 編集部</span></div><div class="card-arrow">→</div></div>
+      </a>
+      <a class="article-card" data-category="稼働スタイル" href="#">
+        <div class="card-visual v3"><span class="card-visual-num">3</span><span class="card-visual-tag">稼働スタイル</span></div>
+        <div class="card-content">
+          <div class="card-meta"><span class="card-date">2026.02.10</span><span class="card-read-time">📖 10分</span></div>
+          <h3 class="card-title">週3日・フルリモートで月収80万円は現実的か？人事フリーランスのリアルな収入構造を公開</h3>
+          <p class="card-excerpt">複数案件の掛け持ち戦略と単価設定の組み合わせで、理想の働き方と収入を両立させる方法を、実際の稼働パターンとともに紹介します。</p>
+        </div>
+        <div class="card-footer"><div class="card-author"><div class="author-avatar">佐</div><span class="author-name">佐藤 編集部</span></div><div class="card-arrow">→</div></div>
+      </a>
+      <a class="article-card" data-category="契約・法律" href="#">
+        <div class="card-visual v4"><span class="card-visual-num">§</span><span class="card-visual-tag">契約・法律</span></div>
+        <div class="card-content">
+          <div class="card-meta"><span class="card-date">2026.02.05</span><span class="card-read-time">📖 12分</span></div>
+          <h3 class="card-title">業務委託契約書で必ずチェックすべき10項目｜人事フリーランスが陥りやすい落とし穴</h3>
+          <p class="card-excerpt">「成果物の定義が曖昧」「秘密保持の範囲が広すぎる」など、サインする前に気づきたい契約書のリスクポイントを法律監修のもと解説します。</p>
+        </div>
+        <div class="card-footer"><div class="card-author"><div class="author-avatar">鈴</div><span class="author-name">鈴木 編集部</span></div><div class="card-arrow">→</div></div>
+      </a>
+      <a class="article-card" data-category="確定申告" href="#">
+        <div class="card-visual v5"><span class="card-visual-num">税</span><span class="card-visual-tag">確定申告</span></div>
+        <div class="card-content">
+          <div class="card-meta"><span class="card-date">2026.01.28</span><span class="card-read-time">📖 9分</span></div>
+          <h3 class="card-title">人事フリーランスが使える経費・控除まとめ｜手取りを最大化する節税の基本</h3>
+          <p class="card-excerpt">書籍・セミナー・交通費・通信費・自宅オフィス…何が経費になるか把握していますか？青色申告との組み合わせで手取りを大きく変える方法を解説。</p>
+        </div>
+        <div class="card-footer"><div class="card-author"><div class="author-avatar">伊</div><span class="author-name">伊藤 編集部</span></div><div class="card-arrow">→</div></div>
+      </a>
+      <a class="article-card" data-category="案件獲得" href="#">
+        <div class="card-visual v6"><span class="card-visual-num">VS</span><span class="card-visual-tag">案件獲得</span></div>
+        <div class="card-content">
+          <div class="card-meta"><span class="card-date">2026.01.20</span><span class="card-read-time">📖 7分</span></div>
+          <h3 class="card-title">エージェント経由 vs 直接契約｜人事フリーランスにとって本当に得なのはどっち？</h3>
+          <p class="card-excerpt">手数料・案件の質・交渉の自由度など、複数の観点から両者を比較。自分のフェーズやスキルに合った案件獲得ルートの選び方を解説します。</p>
+        </div>
+        <div class="card-footer"><div class="card-author"><div class="author-avatar">中</div><span class="author-name">中村 編集部</span></div><div class="card-arrow">→</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 人気記事 -->
+<section class="popular-bg" id="popular">
+  <div class="popular-inner">
+    <div class="popular-title-area">
+      <div class="section-eyebrow" style="margin-bottom:16px;">
+        <div class="section-eyebrow-line"></div><span>Popular Articles</span>
+      </div>
+      <h2 class="popular-title">人気記事<span style="font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic; color:var(--gold); font-size:1.1em;"> ランキング</span></h2>
+      <p class="popular-subtitle">多くの人事フリーランスに読まれている記事をご紹介します。</p>
+    </div>
+    <div class="popular-grid">
+      <div class="popular-item"><div class="popular-rank top">01</div><div><span class="popular-tag">キャリア</span><div class="popular-item-title">会社員人事からフリーランスへ｜独立前に必ず確認すべき5つのチェックリスト</div><div class="popular-item-date">2026.01.10</div></div></div>
+      <div class="popular-item"><div class="popular-rank top">02</div><div><span class="popular-tag">単価・報酬</span><div class="popular-item-title">人事フリーランスの平均単価相場2026年版｜職種・経験年数・稼働日数別に徹底比較</div><div class="popular-item-date">2026.02.20</div></div></div>
+      <div class="popular-item"><div class="popular-rank top">03</div><div><span class="popular-tag">稼働スタイル</span><div class="popular-item-title">週3日・フルリモートで月収80万円は現実的か？人事フリーランスのリアルな収入構造を公開</div><div class="popular-item-date">2026.02.10</div></div></div>
+      <div class="popular-item"><div class="popular-rank">04</div><div><span class="popular-tag">契約・法律</span><div class="popular-item-title">業務委託契約書で必ずチェックすべき10項目｜人事フリーランスが陥りやすい落とし穴</div><div class="popular-item-date">2026.02.05</div></div></div>
+      <div class="popular-item"><div class="popular-rank">05</div><div><span class="popular-tag">確定申告</span><div class="popular-item-title">人事フリーランスが使える経費・控除まとめ｜手取りを最大化する節税の基本</div><div class="popular-item-date">2026.01.28</div></div></div>
+      <div class="popular-item"><div class="popular-rank">06</div><div><span class="popular-tag">案件獲得</span><div class="popular-item-title">エージェント経由 vs 直接契約｜人事フリーランスにとって本当に得なのはどっち？</div><div class="popular-item-date">2026.01.20</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- お問い合わせ -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="section-eyebrow" style="margin-bottom:16px;">
+        <div class="section-eyebrow-line"></div><span>Free Consultation</span>
+      </div>
+      <h2 class="section-title">人事フリーランスの<br><em>お悩み</em>、<br>無料でご相談ください。</h2>
+      <p>案件の探し方、単価交渉、契約のことなど、人事フリーランスに関するご相談を無料で承っています。経験豊富なコンサルタントが丁寧にお答えします。</p>
+      <div class="contact-features">
+        <div class="contact-feature"><div class="feature-icon">✓</div><span>完全無料・秘密厳守</span></div>
+        <div class="contact-feature"><div class="feature-icon">✓</div><span>2営業日以内にご返信</span></div>
+        <div class="contact-feature"><div class="feature-icon">✓</div><span>人事フリーランス専門のコンサルタントが対応</span></div>
+      </div>
+    </div>
+    <div class="contact-form-card">
+      <div class="form-title">無料相談フォーム</div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">お名前 <span class="required">必須</span></label><input type="text" class="form-input" placeholder="山田 太郎"></div>
+        <div class="form-group"><label class="form-label">電話番号</label><input type="tel" class="form-input" placeholder="090-0000-0000"></div>
+      </div>
+      <div class="form-group"><label class="form-label">メールアドレス <span class="required">必須</span></label><input type="email" class="form-input" placeholder="example@email.com"></div>
+      <div class="form-group"><label class="form-label">ご相談内容</label><select class="form-select"><option value="">選択してください</option><option>案件獲得について</option><option>単価・報酬について</option><option>契約・法律について</option><option>稼働スタイルについて</option><option>その他</option></select></div>
+      <div class="form-group"><label class="form-label">メッセージ</label><textarea class="form-textarea" placeholder="ご質問・ご相談内容をご記入ください"></textarea></div>
+      <button class="form-submit" onclick="submitForm()">無料で相談する</button>
+    </div>
+  </div>
+</section>
+
+<!-- フッター -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-emblem"><span>人</span></div>
+          <div class="logo-texts"><span class="logo-main">人事フリーランスNavi</span><span class="logo-sub">HR Professional Media</span></div>
+        </a>
+        <div class="footer-divider"></div>
+        <p>人事のフリーランスに必要な知識・ノウハウを発信するメディア。案件獲得から確定申告まで、フリーランス人事のすべてをカバーします。</p>
+      </div>
+      <div class="footer-col"><h4>Category</h4><ul><li><a href="#">案件獲得</a></li><li><a href="#">単価・報酬</a></li><li><a href="#">稼働スタイル</a></li><li><a href="#">契約・法律</a></li><li><a href="#">確定申告</a></li></ul></div>
+      <div class="footer-col"><h4>Service</h4><ul><li><a href="#">記事一覧</a></li><li><a href="#">人気記事</a></li><li><a href="#">無料相談</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="#">運営会社</a></li><li><a href="#">プライバシーポリシー</a></li><li><a href="#">お問い合わせ</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 人事フリーランスNavi All Rights Reserved.</p>
+      <p>Produced by 人事PRO partners</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function setSearch(kw) {
+  document.getElementById('searchInput').value = kw;
+  doSearch();
+}
+function doSearch() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.article-card').forEach(c => {
+    c.style.display = c.innerText.toLowerCase().includes(q) || !q ? 'block' : 'none';
+  });
+}
+function filterCat(btn, cat) {
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.article-card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.category === cat) ? 'block' : 'none';
+  });
+}
+function submitForm() {
+  alert('お問い合わせありがとうございます！\n担当者より2営業日以内にご連絡いたします。');
+}
+document.getElementById('searchInput')?.addEventListener('keyup', e => {
+  if (e.key === 'Enter') doSearch();
+});
+</script>
+</body>
+</html>
